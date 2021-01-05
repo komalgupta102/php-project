@@ -1,0 +1,12 @@
+{
+    "name": "user/php-project",
+    "authors": [
+        {
+            "name": "Komal Gupta",
+            "email": "komal.gupta102@gmail.com"
+        }
+    ],
+    "require": {
+        "facebook/graph-sdk": "^5.7"
+    }
+}
