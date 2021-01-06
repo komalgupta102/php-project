@@ -2,63 +2,140 @@
 include_once 'helpers/init.php'; 
 include_once('config.php');
 
+require 'vendor/autoload.php';
+session_start();
+$fb = new Facebook\Facebook([
+ 'app_id'      => '424014284369520',
+  'app_secret'     => '73c3c39a1dc533e48101276d898adbe6',
+  'default_graph_version'  => 'v2.10',
+]);
+
 if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
   header("location:admin");
 }
 
-$facebook_output = '';
+// $facebook_output = '';
 
-$facebook_helper = $facebook->getRedirectLoginHelper();
+// $facebook_helper = $facebook->getRedirectLoginHelper();
 
-if(isset($_GET['code']))
-{
- if(isset($_SESSION['access_token']))
- {
-  $access_token = $_SESSION['access_token'];
- }
- else
- { echo "tets"; echo "<pre>"; print_r($facebook_helper);
-  $access_token = $facebook_helper->getAccessToken();
-echo $access_token; exit;
-  $_SESSION['access_token'] = $access_token;
+// if(isset($_GET['code']))
+// {
+//  if(isset($_SESSION['access_token']))
+//  {
+//   $access_token = $_SESSION['access_token'];
+//  }
+//  else
+//  {
+//   $access_token = $facebook_helper->getAccessToken();
 
-  $facebook->setDefaultAccessToken($_SESSION['access_token']);
- }
+//   $_SESSION['access_token'] = $access_token;
 
- $_SESSION['user_id'] = '';
- $_SESSION['user_name'] = '';
- $_SESSION['user_email_address'] = '';
- $_SESSION['user_image'] = '';
+//   $facebook->setDefaultAccessToken($_SESSION['access_token']);
+//  }
 
- $graph_response = $facebook->get("/me?fields=name,email", $access_token);
+//  $_SESSION['user_id'] = '';
+//  $_SESSION['user_name'] = '';
+//  $_SESSION['user_email_address'] = '';
+//  $_SESSION['user_image'] = '';
 
- $facebook_user_info = $graph_response->getGraphUser();
+//  $graph_response = $facebook->get("/me?fields=name,email", $access_token);
 
- if(!empty($facebook_user_info['id']))
- {
-  $_SESSION['user_image'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
- }
+//  $facebook_user_info = $graph_response->getGraphUser();
 
- if(!empty($facebook_user_info['name']))
- {
-  $_SESSION['user_name'] = $facebook_user_info['name'];
- }
+//  if(!empty($facebook_user_info['id']))
+//  {
+//   $_SESSION['user_image'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
+//  }
 
- if(!empty($facebook_user_info['email']))
- {
-  $_SESSION['user_email_address'] = $facebook_user_info['email'];
- }
+//  if(!empty($facebook_user_info['name']))
+//  {
+//   $_SESSION['user_name'] = $facebook_user_info['name'];
+//  }
+
+//  if(!empty($facebook_user_info['email']))
+//  {
+//   $_SESSION['user_email_address'] = $facebook_user_info['email'];
+//  }
  
-}
-else
-{
- // Get login url
-    $facebook_permissions = ['email']; // Optional permissions
+// }
+// else
+// {
+//  // Get login url
+//     $facebook_permissions = ['email']; // Optional permissions
 
-    $facebook_login_url = $facebook_helper->getLoginUrl($base_url.'/login.php', $facebook_permissions);
+//     $facebook_login_url = $facebook_helper->getLoginUrl($base_url.'/login.php', $facebook_permissions);
     
-    // Render Facebook login button
-    $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="php-login-with-facebook.gif" /></a></div>';
+//     // Render Facebook login button
+//     $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="php-login-with-facebook.gif" /></a></div>';
+// }
+
+
+$helper = $fb->getRedirectLoginHelper();
+$permissions = ['email']; // optional
+try {
+if (isset($_SESSION['facebook_access_token'])) {
+$accessToken = $_SESSION['facebook_access_token'];
+} else {
+  $accessToken = $helper->getAccessToken();
+}
+} catch(Facebook\Exceptions\facebookResponseException $e) {
+// When Graph returns an error
+echo 'Graph returned an error: ' . $e->getMessage();
+  exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+// When validation fails or other local issues
+echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  exit;
+}
+if (isset($accessToken)) {
+if (isset($_SESSION['facebook_access_token'])) {
+$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+} else {
+// getting short-lived access token
+$_SESSION['facebook_access_token'] = (string) $accessToken;
+  // OAuth 2.0 client handler
+$oAuth2Client = $fb->getOAuth2Client();
+// Exchanges a short-lived access token for a long-lived one
+$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
+$_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
+// setting default access token to be used in script
+$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+}
+// redirect the user to the profile page if it has "code" GET variable
+if (isset($_GET['code'])) {
+header('Location: profile.php');
+}
+// getting basic info about user
+try {
+$profile_request = $fb->get('/me?fields=name,first_name,last_name,email');
+$requestPicture = $fb->get('/me/picture?redirect=false&height=200'); //getting user picture
+$picture = $requestPicture->getGraphUser();
+$profile = $profile_request->getGraphUser();
+$fbid = $profile->getProperty('id');           // To Get Facebook ID
+$fbfullname = $profile->getProperty('name');   // To Get Facebook full name
+$fbemail = $profile->getProperty('email');    //  To Get Facebook email
+$fbpic = "<img src='".$picture['url']."' class='img-rounded'/>";
+# save the user nformation in session variable
+$_SESSION['fb_id'] = $fbid.'</br>';
+$_SESSION['fb_name'] = $fbfullname.'</br>';
+$_SESSION['fb_email'] = $fbemail.'</br>';
+$_SESSION['fb_pic'] = $fbpic.'</br>';
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+// When Graph returns an error
+echo 'Graph returned an error: ' . $e->getMessage();
+session_destroy();
+// redirecting user back to app login page
+header("Location: ./");
+exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+// When validation fails or other local issues
+echo 'Facebook SDK returned an error: ' . $e->getMessage();
+exit;
+}
+} else {
+// replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used            
+$loginUrl = $helper->getLoginUrl('https://phpstack-21306-56790-161818.cloudwaysapps.com', $permissions);
+echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
 }
 
 ?>
