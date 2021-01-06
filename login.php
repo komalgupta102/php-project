@@ -41,11 +41,11 @@ $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
 $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
-if (isset($_GET['code'])) {
+//if (isset($_GET['code'])) {
 //echo "<pre>"; print_r($_SESSION); exit;
   //header("location:admin");
  // echo "<pre>"; print_r($_SESSION); exit;
-}
+//}
 // getting basic info about user
 try {
 $profile_request = $fb->get('/me?fields=name,first_name,last_name,email');
@@ -78,7 +78,10 @@ exit;
 $loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
 }
 
-echo "<pre>"; print_r($_SESSION);
+if(isset($_SESSION['fb_id']) && $_SESSION['fb_id'] != ''){
+ header("location:admin"); 
+}
+//echo "<pre>"; print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
