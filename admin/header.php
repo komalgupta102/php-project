@@ -2,7 +2,7 @@
 require_once("../helpers/curl_helper.php");
 require_once("../config.php");
 
-$user_details = [];
+$user_details = {};
 if(isset($_SESSION['user_id'])){
 	$action = "POST";
 	$url = $base_url."/admin/api/user.php";
@@ -12,10 +12,9 @@ if(isset($_SESSION['user_id'])){
 	if($result->success){
 		$user_details = $result->data;
 	}	
-}else if(isset($_SESSION['fb_id']) && $_SESSION['fb_id'] != '')
-	$user_details['name'] = $_SESSION['fb_name'];
-	$user_details['email'] = $_SESSION['fb_email'];
-else{
+}else if(isset($_SESSION['fb_id']) && $_SESSION['fb_id'] != ''){
+	$user_details{'name' : $_SESSION['fb_name'], 'email': $_SESSION['fb_email']}
+}else{
 	//echo "test"; exit;
 	header("location:../login.php");
 }
