@@ -1,4 +1,4 @@
- <?php 
+<?php 
 include_once 'helpers/init.php'; 
 include_once('config.php');
 
@@ -72,6 +72,7 @@ if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
 
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email']; // optional
+$loginUrl = '';
 try {
 if (isset($_SESSION['facebook_access_token'])) {
 $accessToken = $_SESSION['facebook_access_token'];
@@ -166,7 +167,9 @@ $loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
                    </div>
                    <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
                    <a class="btn btn-block btn-login" href="<?= $base_url ?>">Go back to home page</a>
-                   <a class="btn btn-block btn-login" href="<?= $loginUrl ?>">Log in with Facebook!</a>
+                   <?php if($loginUrl){ ?>
+                      <a class="btn btn-block btn-login" href="<?= $loginUrl ?>">Log in with Facebook!</a>
+                   <?php } ?>
                 </div>
             </div>
         </form>
