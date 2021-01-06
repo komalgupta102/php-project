@@ -1,5 +1,4 @@
- <?php
- echo "test"; exit; 
+ <?php 
 include_once 'helpers/init.php'; 
 include_once('config.php');
 
@@ -34,7 +33,7 @@ if(isset($_GET['code']))
  $graph_response = $facebook->get("/me?fields=name,email", $access_token);
 
  $facebook_user_info = $graph_response->getGraphUser();
-
+echo "<pre>"; print_r($facebook_user_info); exit;
  if(!empty($facebook_user_info['id']))
  {
   $_SESSION['user_image'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
