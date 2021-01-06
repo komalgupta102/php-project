@@ -42,7 +42,7 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
-echo "<pre>"; print_r($_SESSION); exit;
+//echo "<pre>"; print_r($_SESSION); exit;
   //header("location:admin");
  // echo "<pre>"; print_r($_SESSION); exit;
 }
@@ -78,6 +78,7 @@ exit;
 $loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
 }
 
+echo "<pre>"; print_r($_SESSION); exit;
 ?>
 <!DOCTYPE html>
 <html lang="en">
