@@ -13,13 +13,13 @@ $facebook_helper = $facebook->getRedirectLoginHelper();
 if(isset($_GET['code']))
 {
  if(isset($_SESSION['access_token']))
- { echo "if"; exit;
+ {
   $access_token = $_SESSION['access_token'];
  }
  else
- { echo "else"; exit;
+ {
   $access_token = $facebook_helper->getAccessToken();
-
+echo $access_token; exit;
   $_SESSION['access_token'] = $access_token;
 
   $facebook->setDefaultAccessToken($_SESSION['access_token']);
