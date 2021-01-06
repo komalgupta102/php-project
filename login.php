@@ -103,7 +103,8 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
-header('Location: profile.php');
+//header('Location: profile.php');
+  echo "<pre>"; print_r($_SESSION); exit;
 }
 // getting basic info about user
 try {
@@ -134,7 +135,7 @@ exit;
 }
 } else {
 // replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used            
-$loginUrl = $helper->getLoginUrl('https://phpstack-21306-56790-161818.cloudwaysapps.com', $permissions);
+$loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
 echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
 }
 
