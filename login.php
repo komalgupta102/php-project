@@ -11,7 +11,7 @@ $facebook_output = '';
 $facebook_helper = $facebook->getRedirectLoginHelper();
 
 if(isset($_GET['code']))
-{ echo "test"; echo $_GET['code']; exit;
+{
  if(isset($_SESSION['access_token']))
  {
   $access_token = $_SESSION['access_token'];
@@ -24,7 +24,7 @@ if(isset($_GET['code']))
 
   $facebook->setDefaultAccessToken($_SESSION['access_token']);
  }
-
+echo "<pre>"; print_r($_SESSION); exit;
  $_SESSION['user_id'] = '';
  $_SESSION['user_name'] = '';
  $_SESSION['user_email_address'] = '';
