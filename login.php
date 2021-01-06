@@ -17,7 +17,7 @@ if(isset($_GET['code']))
   $access_token = $_SESSION['access_token'];
  }
  else
- {
+ { echo "tets";
   $access_token = $facebook_helper->getAccessToken();
 echo $access_token; exit;
   $_SESSION['access_token'] = $access_token;
