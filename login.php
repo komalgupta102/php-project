@@ -103,7 +103,7 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
-//header('Location: profile.php');
+  header('Location: admin');
  // echo "<pre>"; print_r($_SESSION); exit;
 }
 // getting basic info about user
