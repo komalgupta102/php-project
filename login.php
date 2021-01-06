@@ -1,4 +1,5 @@
- <?php 
+ <?php
+ echo "test"; exit; 
 include_once 'helpers/init.php'; 
 include_once('config.php');
 
