@@ -16,5 +16,5 @@ $facebook = new \Facebook\Facebook([
 ]);
 
 //$base_url = "http://localhost/php-project";
-$base_url = "http://phpstack-528360-1682655.cloudwaysapps.com";
+$base_url = "https://phpstack-528360-1682655.cloudwaysapps.com";
 ?>
