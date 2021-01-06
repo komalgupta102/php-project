@@ -1,7 +1,10 @@
  <?php 
 include_once 'helpers/init.php'; 
 include_once('config.php');
-session_destroy(); //destroy the session
+
+if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
+  header("location:admin");
+}
 
 $facebook_output = '';
 
