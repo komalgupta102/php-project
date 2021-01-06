@@ -2,15 +2,11 @@
 include_once 'helpers/init.php'; 
 include_once('config.php');
 
-require 'vendor/autoload.php';
-session_start();
-$fb = new Facebook\Facebook([
- 'app_id'      => '424014284369520',
-  'app_secret'     => '73c3c39a1dc533e48101276d898adbe6',
-  'default_graph_version'  => 'v2.10',
-]);
+//require 'vendor/autoload.php';
+//session_start();
+$fb = $facebook;
 
-if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
+if((isset($_SESSION['user_id']) && $_SESSION['user_id'] != '') || $_SESSION['fb_id']){
   header("location:admin");
 }
 
