@@ -35,7 +35,7 @@
 <body>
 	<?php include_once('header.php'); ?>
 	<?php include_once('sidebar.php'); ?>	
-	
+	<?php echo "<pre>"; print_r($user_details); ?>
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
