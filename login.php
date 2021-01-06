@@ -11,7 +11,7 @@ $facebook_output = '';
 $facebook_helper = $facebook->getRedirectLoginHelper();
 
 if(isset($_GET['code']))
-{
+{ echo "test"; echo $_GET['code']; exit;
  if(isset($_SESSION['access_token']))
  {
   $access_token = $_SESSION['access_token'];
@@ -33,7 +33,7 @@ if(isset($_GET['code']))
  $graph_response = $facebook->get("/me?fields=name,email", $access_token);
 
  $facebook_user_info = $graph_response->getGraphUser();
-echo "<pre>"; print_r($facebook_user_info); exit;
+
  if(!empty($facebook_user_info['id']))
  {
   $_SESSION['user_image'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
