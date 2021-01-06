@@ -1,4 +1,4 @@
-<?php
+<?php echo "headers"; exit;
 require_once("../helpers/curl_helper.php");
 require_once("../config.php");
 
