@@ -67,6 +67,7 @@ if((isset($_SESSION['user_id']) && $_SESSION['user_id'] != '') || $_SESSION['fb_
 
 
 $helper = $fb->getRedirectLoginHelper();
+$_SESSION['FBRLH_state']=$_GET['state'];
 $permissions = ['email']; // optional
 $loginUrl = '';
 try {
