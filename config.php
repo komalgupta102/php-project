@@ -15,6 +15,6 @@ $facebook = new \Facebook\Facebook([
   'default_graph_version'  => 'v2.10'
 ]);
 
-$base_url = "http://localhost/php-project";
-
+//$base_url = "http://localhost/php-project";
+$base_url = "http://phpstack-528360-1682655.cloudwaysapps.com";
 ?>
