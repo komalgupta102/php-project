@@ -104,7 +104,7 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
 //header('Location: profile.php');
-  echo "<pre>"; print_r($_SESSION); exit;
+ // echo "<pre>"; print_r($_SESSION); exit;
 }
 // getting basic info about user
 try {
@@ -184,9 +184,9 @@ echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
     else
     {
      echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';
-     echo '<img src="'.$_SESSION["user_image"].'" class="img-responsive img-circle img-thumbnail" />';
-     echo '<h3><b>Name :</b> '.$_SESSION['user_name'].'</h3>';
-     echo '<h3><b>Email :</b> '.$_SESSION['user_email_address'].'</h3>';
+     echo '<img src="'.$_SESSION["fb_pic"].'" class="img-responsive img-circle img-thumbnail" />';
+     echo '<h3><b>Name :</b> '.$_SESSION['fb_name'].'</h3>';
+     echo '<h3><b>Email :</b> '.$_SESSION['fb_email'].'</h3>';
      echo '<h3><a href="logout.php">Logout</h3></div>';
     }
     ?>
