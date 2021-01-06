@@ -15,6 +15,7 @@ if(isset($_SESSION['user_id'])){
 }else if(isset($_SESSION['fb_name']) && isset($_SESSION['fb_email'])){
 	$user_details['name'] = $_SESSION['fb_name'];
 	$user_details['email'] = $_SESSION['fb_email'];
+	$user_details = (object) $user_details;
 }
 else{
 	//echo "test"; exit;
