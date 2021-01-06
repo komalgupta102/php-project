@@ -78,7 +78,7 @@ exit;
 $loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
 }
 
-echo "<pre>"; print_r($_SESSION); exit;
+echo "<pre>"; print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
