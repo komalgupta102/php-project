@@ -103,7 +103,7 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
-  header('Location: admin');
+  header("location:admin");
  // echo "<pre>"; print_r($_SESSION); exit;
 }
 // getting basic info about user
@@ -136,7 +136,6 @@ exit;
 } else {
 // replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used            
 $loginUrl = $helper->getLoginUrl($base_url.'/login.php', $permissions);
-echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
 }
 
 ?>
@@ -167,31 +166,11 @@ echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
                    </div>
                    <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
                    <a class="btn btn-block btn-login" href="<?= $base_url ?>">Go back to home page</a>
+                   <a class="btn btn-block btn-login" href="<?= $loginUrl ?>">Log in with Facebook!</a>
                 </div>
             </div>
         </form>
     </div>
-    <div class="container">
-   <br />
-   <h2 align="center">PHP Login using Google Account</h2>
-   <br />
-   <div class="panel panel-default">
-    <?php 
-    if(isset($facebook_login_url))
-    {
-     echo $facebook_login_url;
-    }
-    else
-    {
-     echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';
-     echo '<img src="'.$_SESSION["fb_pic"].'" class="img-responsive img-circle img-thumbnail" />';
-     echo '<h3><b>Name :</b> '.$_SESSION['fb_name'].'</h3>';
-     echo '<h3><b>Email :</b> '.$_SESSION['fb_email'].'</h3>';
-     echo '<h3><a href="logout.php">Logout</h3></div>';
-    }
-    ?>
-   </div>
-  </div>
 </div>
 
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
