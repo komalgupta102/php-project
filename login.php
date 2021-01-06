@@ -7,7 +7,7 @@ include_once('config.php');
 $fb = $facebook;
 
 if((isset($_SESSION['user_id']) && $_SESSION['user_id'] != '') || $_SESSION['fb_id']){
-  header("location:admin");
+  header("location:admin1");
 }
 
 // $facebook_output = '';
@@ -101,7 +101,7 @@ $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
 }
 // redirect the user to the profile page if it has "code" GET variable
 if (isset($_GET['code'])) {
-  header("location:admin");
+  header("location:admin2");
  // echo "<pre>"; print_r($_SESSION); exit;
 }
 // getting basic info about user
