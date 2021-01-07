@@ -31,15 +31,12 @@ $('#register-form').submit(function(event) {
                 //set session
                  $.ajax({
                     url: "helpers/sendgrid.php",
-                    data: {}
+                    data: { 'name': formData.name, 'email': formData.email, 'password': formData.password}
                 }).done(function(data1){
-                    alert(data1);
                     alert(data.message);
                     window.location.href = 'login';
                 })
-                //     store.setJWT(data.token)
-              //      window.location.href = 'admin';
-                }else{
+            }else{
                     alert(data.message);
                 }
             });
