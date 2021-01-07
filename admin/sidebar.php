@@ -1,6 +1,6 @@
 	<div class="left-side-bar">
 		<div class="brand-logo">
-			<a href="index.html">
+			<a href="index.php">
 				<img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
 				<img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
 			</a>
@@ -31,7 +31,6 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="highchart.php">Highchart</a></li>
-							<li><a href="apexcharts.html">Apexcharts</a></li>
 						</ul>
 					</li>
 				</ul>
