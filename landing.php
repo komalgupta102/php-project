@@ -1,4 +1,6 @@
-<?php include_once 'helpers/init.php'; ?>
+<?php include_once 'helpers/init.php'; 
+	  include_once 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
