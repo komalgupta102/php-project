@@ -11,7 +11,7 @@ use SendGrid\Mail\Mail;
 	$email->addContent(
 	    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
 	);
-	$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+	$sendgrid = new \SendGrid('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');
 	try {
 	    $response = $sendgrid->send($email);
 	    print $response->statusCode() . "\n";
