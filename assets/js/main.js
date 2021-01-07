@@ -32,7 +32,8 @@ $('#register-form').submit(function(event) {
                  $.ajax({
                     url: "helpers/sendgrid.php",
                     data: { }
-                }).done(function(){
+                }).done(function(data1){
+                    alert(data1);
                     alert(data.message);
                     window.location.href = 'login';
                 })
