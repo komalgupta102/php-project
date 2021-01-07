@@ -8,7 +8,7 @@ use SendGrid\Mail\Mail;
 	$email->setSubject("Registration successfull");
 	$email->addTo("komal.gupta102@gmail.com", $_GET['name']);
 	$email->addContent(
-	    "text/html", "<strong>Login Details are:</strong><br/>Email: ".$_GET['email']."<br/>Password: ".$_GET['password']
+	    "text/html", "<strong>Login Details are:</strong><br/>Email: "
 	);
 	$sendgrid = new \SendGrid('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');
 	try {
