@@ -17,6 +17,12 @@ $isLoggedIn = 0;
 if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
 	$isLoggedIn = 1;
 }
+
+$action = "GET";
+$url = $base_url."/api/blogs.php";
+$blogs = CurlHelper::perform_http_request($action, $url);
+$blogs = json_decode($blogs);
+$blogs = $blogs->data;
 ?>
   <nav class="navbar navbar-expand-lg fixed-top ">
 	  <a class="navbar-brand" href="#">Home</a>
@@ -128,17 +134,23 @@ if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
 	<div class="container">
 	<h1 class="text-center">Blog</h1>
 		<div class="row">
-			<div class="col-md-4 col-lg-4 col-sm-12">
+			<?php 
+			if(!empty($blogs)){
+			foreach ($blogs as $key => $value) { ?>
+				<div class="col-md-4 col-lg-4 col-sm-12">
 				<div class="card">
 					<div class="card-img">
-						<img src="<?php echo imageFile('blog.jpeg')?>" class="img-fluid">
+						<?php if($value->file){ ?>
+							<img src="<?php echo blogFile($value->file)?>" class="img-fluid">
+						<?php }else{ ?>
+							<img src="<?php echo imageFile('blog.jpeg')?>" class="img-fluid">
+						<?php } ?>
 					</div>
 					
 					<div class="card-body">
-					<h4 class="card-title">Post Title</h4>
+					<h4 class="card-title"><?= $value->title ?></h4>
 						<p class="card-text">
-							
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							<?= $value->description ?>
 						</p>
 					</div>
 					<div class="card-footer">
@@ -146,42 +158,10 @@ if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != ''){
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 col-lg-4 col-sm-12">
-				<div class="card">
-					<div class="card-img">
-						<img src="<?php echo imageFile('blog.jpeg')?>" class="img-fluid">
-					</div>
-					
-					<div class="card-body">
-					   <h4 class="card-title">Post Title</h4>
-						<p class="card-text">
-							
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-					</div>
-					<div class="card-footer">
-						<a href="" class="card-link">Read more</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 col-lg-4 col-sm-12">
-				<div class="card">
-					<div class="card-img">
-						<img src="<?php echo imageFile('blog.jpeg')?>" class="img-fluid">
-					</div>
-					
-					<div class="card-body">
-					<h4 class="card-title">Post Title</h4>
-						<p class="card-text">
-							
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-					</div>
-					<div class="card-footer">
-						<a href="" class="card-link">Read more</a>
-					</div>
-				</div>
-			</div>
+			<?php } }else{
+				echo '<strong class="text-center">No Blog Found</strong>';
+			}
+			?>
 		</div>
 	</div>
 </div>

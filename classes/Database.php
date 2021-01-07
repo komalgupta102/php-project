@@ -6,6 +6,10 @@ class Database{
     private $db_name = 'hawvkszumn';
     private $db_username = 'hawvkszumn';
     private $db_password = 'y2UMtQWn8b';
+
+    // private $db_name = 'php-web-app';
+    // private $db_username = 'root';
+    // private $db_password = 'root';
     
     public function dbConnection(){
         
