@@ -27,8 +27,19 @@ $('#register-form').submit(function(event) {
         })
             // using the done promise callback
             .done(function(data) {
-            	alert(data.message)
-                // here we will handle errors and validation messages
+            	if(data.success){
+                //set session
+                 $.ajax({
+                    url: "helpers/sendgrid.php",
+                    data: { user_id: data.data.user_id }
+                }).done(function(){
+                    window.location.href = 'admin';
+                })
+                //     store.setJWT(data.token)
+              //      window.location.href = 'admin';
+                }else{
+                    alert(data.message);
+                }
             });
 
         // stop the form from submitting the normal way and refreshing the page
