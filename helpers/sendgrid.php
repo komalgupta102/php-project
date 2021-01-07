@@ -4,14 +4,13 @@ require '../vendor/autoload.php';
 use SendGrid\Mail\Mail;
 
 	$email = new Mail();
-	$email->setFrom("komal.gupta102@gmail.com", "Example User");
-	$email->setSubject("Sending with Twilio SendGrid is Fun");
-	$email->addTo("komal.gupta102@gmail.com", "Example User");
-	$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
+	$email->setFrom("komal.gupta102@gmail.com", "Komal Gupta");
+	$email->setSubject("Registration successfull");
+	$email->addTo("komal.gupta102@gmail.com", $_POST['name']);
 	$email->addContent(
-	    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+	    "text/html", "<strong>Login Details are:</strong><br/>Email: ".$_POST['email']."<br/>Password: ".$_POST['password']
 	);
-	$sendgrid = new \SendGrid('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');
+	$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
 	try {
 	    $response = $sendgrid->send($email);
 	    print $response->statusCode() . "\n";
@@ -20,3 +19,4 @@ use SendGrid\Mail\Mail;
 	} catch (Exception $e) {
 	    echo 'Caught exception: '.  $e->getMessage(). "\n";
 	}
+}
