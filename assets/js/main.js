@@ -31,7 +31,7 @@ $('#register-form').submit(function(event) {
                 //set session
                  $.ajax({
                     url: "helpers/sendgrid.php",
-                    data: { 'name': formData.name, 'email': formData.email, 'password': formData.password}
+                    data: {}
                 }).done(function(data1){
                     alert(data1);
                     alert(data.message);
