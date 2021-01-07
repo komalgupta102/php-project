@@ -31,9 +31,10 @@ $('#register-form').submit(function(event) {
                 //set session
                  $.ajax({
                     url: "helpers/sendgrid.php",
-                    data: { user_id: data.data.user_id }
+                    data: { }
                 }).done(function(){
-                    window.location.href = 'admin';
+                    alert(data.message);
+                    window.location.href = 'login';
                 })
                 //     store.setJWT(data.token)
               //      window.location.href = 'admin';
